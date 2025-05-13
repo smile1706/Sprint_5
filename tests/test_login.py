@@ -3,7 +3,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from locators import Locators
 from curl import *
-from conftest import driver,login
+from helper import login
+from conftest import driver
 
 class TestLogin:
 

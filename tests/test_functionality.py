@@ -3,7 +3,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from locators import Locators
 from curl import *
-from conftest import driver,login
+from conftest import driver
+from helper import login
 
 
 class TestRedirectMainPageToAccountPage: #Переход в личный кабинет по клику на «Личный кабинет»
@@ -65,17 +66,17 @@ class TestNavigateConstructorSections: #проверка переходов к �
 
     def test_click_buns_section_shows_buns_elements(self,driver): #«Булки»
         WebDriverWait(driver, 10).until(EC.invisibility_of_element_located(Locators.OVERLAY))
-        buns_tab = driver.find_element(*Locators.BUNS)
-        if "tab_tab_type_current__2BEPc" not in buns_tab.get_attribute("class"):
-            buns_tab.click()
-        active_tab = WebDriverWait(driver, 10).until(EC.presence_of_element_located(Locators.ACTIVE_BUNS_TAB))
-        assert "tab_tab_type_current__2BEPc" in active_tab.get_attribute('class')
+        driver.find_element(*Locators.SAUCES).click()
+        WebDriverWait(driver, 10).until(EC.visibility_of_element_located(Locators.ACTIVE_SAUCES_TAB))
+        driver.find_element(*Locators.BUNS).click()
+        active_tab = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(Locators.ACTIVE_BUNS_TAB))
+        assert "Булки" in active_tab.text
 
     def test_click_sauces_section_shows_sauces_elements(self,driver): #«Соусы»
         WebDriverWait(driver, 10).until(EC.invisibility_of_element_located(Locators.OVERLAY))
         driver.find_element(*Locators.SAUCES).click()
-        active_tab = WebDriverWait(driver, 10).until(EC.presence_of_element_located(Locators.ACTIVE_SAUCES_TAB))
-        assert "tab_tab_type_current__2BEPc" in active_tab.get_attribute('class')
+        active_tab = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(Locators.ACTIVE_SAUCES_TAB))
+        assert "Соусы" in active_tab.text
 
     def test_click_fillings_section_shows_fillings_elements(self,driver): #«Начинки»
         WebDriverWait(driver, 10).until(EC.invisibility_of_element_located(Locators.OVERLAY))
